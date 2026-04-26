@@ -37,6 +37,16 @@ python -m eval.run_eval --methods knn  # no API cost
 python -m eval.run_eval --methods all  # ~$10-15 with caching
 ```
 
+Or with Docker (mounts `data/` and `results/` from the host so caches persist across runs):
+
+```bash
+cp .env.example .env  # fill in API keys
+docker compose build
+docker compose run --rm bakeoff python -m eval.run_eval --methods knn
+docker compose run --rm bakeoff python -m eval.run_eval --methods all
+docker compose run --rm bakeoff python -m analysis.reports
+```
+
 All LLM responses are cached on disk (`results/cache/`), so reruns are free.
 
 ## Key findings
