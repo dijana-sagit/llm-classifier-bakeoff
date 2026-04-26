@@ -1,0 +1,1 @@
+"""Evaluation orchestration: composes methods × providers × metrics."""
