@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# uv
+.venv/
+
+# Secrets
+.env
+
+# Cache (LLM responses, embeddings)
+results/cache/
+*.faiss
+*.pkl
+
+# Data downloads
+data/raw/
+data/cache/
+
+# OS
+.DS_Store
