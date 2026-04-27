@@ -29,7 +29,9 @@ class Banking77Splits:
 
 def load_banking77(seed: int = 0) -> Banking77Splits:
     """Load Banking77 train/test splits as ``LabelledExample`` lists."""
-    ds = load_dataset("PolyAI/banking77")
+    # PolyAI/banking77 still ships a script-based loader, which `datasets`>=3
+    # refuses to run. Load from the auto-generated parquet ref instead.
+    ds = load_dataset("PolyAI/banking77", revision="refs/convert/parquet")
     label_names: list[str] = ds["train"].features["label"].names
 
     def to_examples(split) -> list[LabelledExample]:
