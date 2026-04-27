@@ -1,4 +1,4 @@
-"""Builder pattern: assemble a markdown analysis report from result traces.
+"""Assemble a markdown analysis report from result traces.
 
 Loads per-method prediction CSVs written by ``eval/run_eval.py``,
 runs significance tests, builds per-class stats, generates plots, and
@@ -65,7 +65,7 @@ def _load_trace(method: str) -> _MethodTrace:
 
 
 class ReportBuilder:
-    """Builder pattern: chain analyses, then ``.build()`` writes the report.
+    """Chain analyses, then ``.build()`` writes the report.
 
     Keeps each analysis step independent and lets the caller pick subsets
     (e.g. skip plots in CI). Each method returns ``self`` for chaining.

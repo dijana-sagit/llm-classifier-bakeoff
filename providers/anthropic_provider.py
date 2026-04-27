@@ -1,4 +1,4 @@
-"""Anthropic adapter — wraps the ``anthropic`` SDK behind ``LLMProvider``.
+"""Anthropic provider — wraps the ``anthropic`` SDK behind ``LLMProvider``.
 
 Supports prompt caching via ``cache_control`` on the system block. For a
 zero-shot classifier where the same 77-label system prompt is reused every

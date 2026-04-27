@@ -69,18 +69,14 @@ _Opinionated paragraph after results are in. Don't sit on the fence._
 
 ## Code organisation
 
-The code uses classic patterns deliberately, not decoratively — the file tree is the architecture diagram:
-
 ```
-methods/         # Strategy: each ClassificationMethod is interchangeable
-providers/       # Adapter: three LLM SDKs behind one Protocol
-infra/cache.py   # Decorator: @disk_cache wraps any predict callable
-infra/registry.py # Registry: @register("zero_shot") decorator → CLI by name
-eval/            # Orchestration: composes methods × providers × metrics
-analysis/        # Builder: ReportBuilder().with_*().build() — significance + plots
+methods/         # Each ClassificationMethod is interchangeable
+providers/       # Three LLM SDKs behind one common interface
+infra/cache.py   # @disk_cache wraps any predict callable
+infra/registry.py # @register("zero_shot") → exposes the method by name to the CLI
+eval/            # Composes methods × providers × metrics
+analysis/        # ReportBuilder().with_*().build() — significance + plots
 ```
-
-Method has-a Provider (composition); methods register themselves; providers conform to a Protocol; results are immutable dataclasses. `typing.Protocol` over ABC throughout.
 
 ## Statistical analysis (the depth past headline accuracy)
 

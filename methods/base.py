@@ -1,4 +1,4 @@
-"""Strategy interface for classification methods.
+"""Common interface for classification methods.
 
 Every method (kNN, zero-shot LLM, retrieval-augmented LLM, few-shot LLM,
 fine-tuned SetFit) implements ``ClassificationMethod`` and is therefore
@@ -26,7 +26,7 @@ class Prediction:
 
 @runtime_checkable
 class ClassificationMethod(Protocol):
-    """Strategy: interchangeable classification algorithms.
+    """Interchangeable classification algorithms.
 
     Implementations may be stateless (zero-shot LLM) or stateful (kNN,
     fine-tuned SetFit). ``fit`` is a no-op for stateless methods.

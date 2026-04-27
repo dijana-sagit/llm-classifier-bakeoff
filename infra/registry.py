@@ -1,8 +1,7 @@
-"""Registry pattern: decorator-based string→class lookup.
+"""Decorator-based string→class lookup.
 
 Lets the CLI accept ``--methods knn,zero_shot`` and the eval loop instantiate
-the right strategy without a giant if/elif. Mirrors how HuggingFace and
-torchvision register components.
+the right method without a giant if/elif.
 """
 from __future__ import annotations
 

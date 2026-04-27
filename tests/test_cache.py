@@ -1,4 +1,4 @@
-"""Decorator-pattern test for the disk cache."""
+"""Tests for the disk cache decorator."""
 from __future__ import annotations
 
 import infra.cache as cache_mod

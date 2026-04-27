@@ -1,4 +1,4 @@
-"""OpenAI adapter — wraps the ``openai`` SDK behind ``LLMProvider``."""
+"""OpenAI provider — wraps the ``openai`` SDK behind ``LLMProvider``."""
 from __future__ import annotations
 
 import time

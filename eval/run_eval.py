@@ -44,7 +44,7 @@ RESULTS_CSV = RESULTS_DIR / "results.csv"
 PREDICTIONS_DIR = RESULTS_DIR / "predictions"
 
 
-# Variant table: name → factory. The Strategy is fixed (``ZeroShotLLM``);
+# Variant table: name → factory. The method is fixed (``ZeroShotLLM``);
 # the configuration (provider × model) varies. One line per benchmarked
 # model; eval CLI accepts these names directly.
 METHOD_VARIANTS: dict[str, Callable[[], ClassificationMethod]] = {

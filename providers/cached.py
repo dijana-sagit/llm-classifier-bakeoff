@@ -1,4 +1,4 @@
-"""Cached completions via the Decorator pattern.
+"""Cached completions wrapping the provider call with ``@disk_cache``.
 
 ``@disk_cache`` keys on the function arguments — but ``LLMProvider``
 instances aren't hashable in a stable way (their SDK client is opaque).

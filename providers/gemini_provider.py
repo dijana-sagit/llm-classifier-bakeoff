@@ -1,4 +1,4 @@
-"""Gemini adapter — wraps ``google-genai`` behind ``LLMProvider``."""
+"""Gemini provider — wraps ``google-genai`` behind ``LLMProvider``."""
 from __future__ import annotations
 
 import time

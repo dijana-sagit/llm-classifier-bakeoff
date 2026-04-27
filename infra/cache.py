@@ -1,4 +1,4 @@
-"""Decorator pattern: ``@disk_cache`` persists any callable's return value.
+"""``@disk_cache`` persists any callable's return value.
 
 Used to cache LLM completions so re-running the eval is free. Cache key is
 derived from the function name and a SHA-256 of the arguments — keep the

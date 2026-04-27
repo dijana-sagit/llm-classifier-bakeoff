@@ -1,9 +1,9 @@
-"""Adapter interface for LLM providers.
+"""Common interface for LLM providers.
 
 Three providers (Anthropic, OpenAI, Google) ship three different SDKs with
 three different request/response shapes. ``LLMProvider`` is the uniform
-interface every method talks to; the concrete adapters in this package
-translate to and from each SDK.
+interface every method talks to; the concrete implementations in this
+package translate to and from each SDK.
 """
 from __future__ import annotations
 
@@ -25,11 +25,11 @@ class ProviderResponse:
 
 @runtime_checkable
 class LLMProvider(Protocol):
-    """Adapter Protocol: every concrete adapter exposes the same shape.
+    """Every concrete provider exposes the same shape.
 
     ``cache_system=True`` is a hint that the system prompt is reused across
     many calls and should be cached on the provider side (e.g. Anthropic
-    cache_control). Adapters that don't support it ignore the flag.
+    cache_control). Providers that don't support it ignore the flag.
     """
 
     name: str

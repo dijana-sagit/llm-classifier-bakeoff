@@ -1,8 +1,7 @@
 """Zero-shot LLM tests with a fake provider.
 
 The fake satisfies the ``LLMProvider`` Protocol via structural typing —
-no inheritance, no patching of registries. Demonstrates that the Adapter
-abstraction is real: any object with the right shape works.
+no inheritance, no patching of registries.
 """
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Registry-pattern smoke tests."""
+"""Smoke tests for the method/provider registry."""
 from __future__ import annotations
 
 import pytest
