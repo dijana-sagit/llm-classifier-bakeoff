@@ -36,12 +36,19 @@ class GeminiProvider:
                 system_instruction=system,
                 max_output_tokens=max_tokens,
                 temperature=temperature,
+                # Gemini 2.5 enables "thinking" by default, which consumes the
+                # output-token budget before any answer text is emitted. For a
+                # single-label classification task we want the label, not a
+                # reasoning trace.
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
             ),
         )
         latency_ms = (time.perf_counter() - t0) * 1000
         text = resp.text or ""
-        in_tok = resp.usage_metadata.prompt_token_count
-        out_tok = resp.usage_metadata.candidates_token_count
+        # Either token count can be None (e.g. empty / refused responses); the
+        # pricing module multiplies by these, so coerce to int.
+        in_tok = resp.usage_metadata.prompt_token_count or 0
+        out_tok = resp.usage_metadata.candidates_token_count or 0
         return ProviderResponse(
             text=text,
             input_tokens=in_tok,

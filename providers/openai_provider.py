@@ -27,16 +27,25 @@ class OpenAIProvider:
         temperature: float = 0.0,
         cache_system: bool = False,  # OpenAI auto-caches >1024-token prefixes
     ) -> ProviderResponse:
-        t0 = time.perf_counter()
-        resp = self._client.chat.completions.create(
-            model=model,
-            messages=[
+        # GPT-5 family quirks: only supports temperature=1 (so we omit the
+        # parameter), uses chain-of-thought reasoning by default which eats
+        # the output-token budget — keep it minimal for classification.
+        is_gpt5 = model.startswith("gpt-5")
+        params: dict = {
+            "model": model,
+            "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": user},
             ],
-            max_tokens=max_tokens,
-            temperature=temperature,
-        )
+            "max_completion_tokens": max_tokens,
+        }
+        if is_gpt5:
+            params["reasoning_effort"] = "minimal"
+        else:
+            params["temperature"] = temperature
+
+        t0 = time.perf_counter()
+        resp = self._client.chat.completions.create(**params)
         latency_ms = (time.perf_counter() - t0) * 1000
         text = resp.choices[0].message.content or ""
         in_tok = resp.usage.prompt_tokens

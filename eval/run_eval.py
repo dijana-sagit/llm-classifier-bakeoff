@@ -29,12 +29,13 @@ from methods.base import ClassificationMethod
 
 # Importing the modules registers them via @register_method decorators.
 import methods.embedding_knn  # noqa: F401
+import methods.retrieval_augmented  # noqa: F401
 import methods.zero_shot  # noqa: F401
 import providers.anthropic_provider  # noqa: F401
 import providers.gemini_provider  # noqa: F401
 import providers.openai_provider  # noqa: F401
 from methods.embedding_knn import EmbeddingKNN
-from methods.zero_shot import ZeroShotLLM
+from methods.retrieval_augmented import RetrievalAugmentedLLM
 from providers.anthropic_provider import AnthropicProvider
 from providers.gemini_provider import GeminiProvider
 from providers.openai_provider import OpenAIProvider
@@ -49,16 +50,16 @@ PREDICTIONS_DIR = RESULTS_DIR / "predictions"
 # model; eval CLI accepts these names directly.
 METHOD_VARIANTS: dict[str, Callable[[], ClassificationMethod]] = {
     "knn": EmbeddingKNN,
-    "zero_shot_haiku": lambda: ZeroShotLLM(
+    "retrieval_haiku": lambda: RetrievalAugmentedLLM(
         provider=AnthropicProvider(), model="claude-haiku-4-5"
     ),
-    "zero_shot_sonnet": lambda: ZeroShotLLM(
+    "retrieval_sonnet": lambda: RetrievalAugmentedLLM(
         provider=AnthropicProvider(), model="claude-sonnet-4-6"
     ),
-    "zero_shot_gpt5_mini": lambda: ZeroShotLLM(
+    "retrieval_gpt5_mini": lambda: RetrievalAugmentedLLM(
         provider=OpenAIProvider(), model="gpt-5-mini"
     ),
-    "zero_shot_gemini_flash": lambda: ZeroShotLLM(
+    "retrieval_gemini_flash": lambda: RetrievalAugmentedLLM(
         provider=GeminiProvider(), model="gemini-2.5-flash"
     ),
 }
