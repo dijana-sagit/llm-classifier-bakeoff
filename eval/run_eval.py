@@ -29,13 +29,17 @@ from methods.base import ClassificationMethod
 
 # Importing the modules registers them via @register_method decorators.
 import methods.embedding_knn  # noqa: F401
+import methods.few_shot  # noqa: F401
 import methods.retrieval_augmented  # noqa: F401
+import methods.setfit_classifier  # noqa: F401
 import methods.zero_shot  # noqa: F401
 import providers.anthropic_provider  # noqa: F401
 import providers.gemini_provider  # noqa: F401
 import providers.openai_provider  # noqa: F401
 from methods.embedding_knn import EmbeddingKNN
+from methods.few_shot import FewShotLLM
 from methods.retrieval_augmented import RetrievalAugmentedLLM
+from methods.setfit_classifier import SetFitClassifier
 from providers.anthropic_provider import AnthropicProvider
 from providers.gemini_provider import GeminiProvider
 from providers.openai_provider import OpenAIProvider
@@ -50,6 +54,7 @@ PREDICTIONS_DIR = RESULTS_DIR / "predictions"
 # model; eval CLI accepts these names directly.
 METHOD_VARIANTS: dict[str, Callable[[], ClassificationMethod]] = {
     "knn": EmbeddingKNN,
+    "setfit": SetFitClassifier,
     "retrieval_haiku": lambda: RetrievalAugmentedLLM(
         provider=AnthropicProvider(), model="claude-haiku-4-5"
     ),
@@ -60,6 +65,18 @@ METHOD_VARIANTS: dict[str, Callable[[], ClassificationMethod]] = {
         provider=OpenAIProvider(), model="gpt-5-mini"
     ),
     "retrieval_gemini_flash": lambda: RetrievalAugmentedLLM(
+        provider=GeminiProvider(), model="gemini-2.5-flash"
+    ),
+    "few_shot_haiku": lambda: FewShotLLM(
+        provider=AnthropicProvider(), model="claude-haiku-4-5"
+    ),
+    "few_shot_sonnet": lambda: FewShotLLM(
+        provider=AnthropicProvider(), model="claude-sonnet-4-6"
+    ),
+    "few_shot_gpt5_mini": lambda: FewShotLLM(
+        provider=OpenAIProvider(), model="gpt-5-mini"
+    ),
+    "few_shot_gemini_flash": lambda: FewShotLLM(
         provider=GeminiProvider(), model="gemini-2.5-flash"
     ),
 }

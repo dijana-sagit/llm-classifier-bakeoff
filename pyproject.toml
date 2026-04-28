@@ -9,6 +9,10 @@ dependencies = [
     "openai>=1.50.0",
     "google-genai>=0.3.0",
     "sentence-transformers>=3.0.0",
+    "setfit>=1.1.0",
+    # setfit 1.1.x imports symbols that moved in transformers 5.x; pin until
+    # a compatible setfit release.
+    "transformers>=4.41,<5",
     "datasets>=3.0.0",
     "scikit-learn>=1.5.0",
     "scipy>=1.13.0",
