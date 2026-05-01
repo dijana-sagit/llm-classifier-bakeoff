@@ -50,12 +50,21 @@ class AnthropicProvider:
         latency_ms = (time.perf_counter() - t0) * 1000
         text = resp.content[0].text if resp.content else ""
         in_tok = resp.usage.input_tokens
+        cache_read = getattr(resp.usage, "cache_read_input_tokens", 0) or 0
+        cache_write = getattr(resp.usage, "cache_creation_input_tokens", 0) or 0
         out_tok = resp.usage.output_tokens
         return ProviderResponse(
             text=text,
-            input_tokens=in_tok,
+            input_tokens=in_tok + cache_read + cache_write,
             output_tokens=out_tok,
-            cost_usd=price_completion(self.name, model, in_tok, out_tok),
+            cost_usd=price_completion(
+                self.name,
+                model,
+                in_tok,
+                out_tok,
+                cached_read_tokens=cache_read,
+                cache_write_tokens=cache_write,
+            ),
             latency_ms=latency_ms,
             model=model,
         )

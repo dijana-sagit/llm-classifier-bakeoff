@@ -123,7 +123,7 @@ class RetrievalAugmentedLLM:
         return Prediction(
             query=query,
             predicted_label=label,
-            top_k=candidates,
+            top_k=[(label, 1.0)],
             latency_ms=latency_ms,
             cost_usd=response.cost_usd,
             raw_response=response.text,

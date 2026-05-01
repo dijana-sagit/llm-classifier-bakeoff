@@ -50,11 +50,19 @@ class OpenAIProvider:
         text = resp.choices[0].message.content or ""
         in_tok = resp.usage.prompt_tokens
         out_tok = resp.usage.completion_tokens
+        details = getattr(resp.usage, "prompt_tokens_details", None)
+        cached = (getattr(details, "cached_tokens", 0) or 0) if details else 0
         return ProviderResponse(
             text=text,
             input_tokens=in_tok,
             output_tokens=out_tok,
-            cost_usd=price_completion(self.name, model, in_tok, out_tok),
+            cost_usd=price_completion(
+                self.name,
+                model,
+                in_tok - cached,
+                out_tok,
+                cached_read_tokens=cached,
+            ),
             latency_ms=latency_ms,
             model=model,
         )
