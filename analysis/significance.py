@@ -13,7 +13,6 @@ same order).
 """
 from __future__ import annotations
 
-import random
 from dataclasses import dataclass
 
 import numpy as np
@@ -139,8 +138,3 @@ def paired_bootstrap_accuracy_diff(
         alpha=alpha,
         n_resamples=n_resamples,
     )
-
-
-def _stable_seed(label: str) -> int:
-    rng = random.Random(label)
-    return rng.randint(0, 2**32 - 1)
